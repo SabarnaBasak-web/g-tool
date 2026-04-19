@@ -35,6 +35,23 @@ func main() {
 			return
 		}
 		msg := os.Args[2]
+		if !IsGitInstalled() {
+			fmt.Println("❌ Git is not installed. Please install Git first.")
+			return
+		}
+
+		if !IsGitRepo() {
+			fmt.Println("❌ Not a Git repository. Run `git init` first.")
+			return
+		}
+
+		if !IsGitConfigured() {
+			fmt.Println("❌ Git user not configured.")
+			fmt.Println("Run:")
+			fmt.Println(`  git config --global user.name "Your Name"`)
+			fmt.Println(`  git config --global user.email "you@example.com"`)
+			return
+		}
 
 		runGitCommand("add", ".")
 		runGitCommand("commit", "-m", msg)
