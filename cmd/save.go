@@ -1,10 +1,8 @@
-/*
-Copyright © 2026 NAME HERE <EMAIL ADDRESS>
-*/
 package cmd
 
 import (
 	"fmt"
+	"gtool/internal/git"
 	"os/exec"
 
 	"github.com/spf13/cobra"
@@ -22,9 +20,9 @@ gtool save "Message"`,
 			fmt.Println("❌ Commit message required. Use -m")
 			return
 		}
-		runGit(cmd, "add", ".")
-		runGit(cmd, "commit", "-m", message)
-		runGit(cmd, "push")
+		git.RunGitCommand("add", ".")
+		git.RunGitCommand("commit", "-m", message)
+		git.RunGitCommand("push")
 
 		fmt.Println("✅ Changes saved and pushed")
 	},
