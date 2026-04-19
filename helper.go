@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os/exec"
 )
 
@@ -22,6 +23,27 @@ func IsGitConfigured() bool {
 		return false
 	}
 	if err := emailCmd.Run(); err != nil {
+		return false
+	}
+	return true
+}
+
+func IsGitConfigSet() bool {
+	if !IsGitInstalled() {
+		fmt.Println("❌ Git is not installed. Please install Git first.")
+		return false
+	}
+
+	if !IsGitRepo() {
+		fmt.Println("❌ Not a Git repository. Run `git init` first.")
+		return false
+	}
+
+	if !IsGitConfigured() {
+		fmt.Println("❌ Git user not configured.")
+		fmt.Println("Run:")
+		fmt.Println(`  git config --global user.name "Your Name"`)
+		fmt.Println(`  git config --global user.email "you@example.com"`)
 		return false
 	}
 	return true

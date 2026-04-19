@@ -1,0 +1,51 @@
+/*
+Copyright © 2026 NAME HERE <EMAIL ADDRESS>
+*/
+package cmd
+
+import (
+	"fmt"
+	"os/exec"
+
+	"github.com/spf13/cobra"
+)
+
+// saveCmd represents the save command
+var saveCmd = &cobra.Command{
+	Use:   "save [message]",
+	Short: "Add, commit, and push changes",
+	Long: `stage all the existing files, commit with the message provided
+push the changes to remote branch. For example:
+gtool save "Message"`,
+	Run: func(cmd *cobra.Command, args []string) {
+		if message == "" {
+			fmt.Println("❌ Commit message required. Use -m")
+			return
+		}
+		runGit(cmd, "add", ".")
+		runGit(cmd, "commit", "-m", message)
+		runGit(cmd, "push")
+
+		fmt.Println("✅ Changes saved and pushed")
+	},
+}
+
+var message string
+
+func runGit(cmd *cobra.Command, args ...string) {
+	c := exec.Command("git", args...)
+	c.Stdout = cmd.OutOrStdout()
+	c.Stderr = cmd.ErrOrStderr()
+	_ = c.Run()
+}
+
+func init() {
+	saveCmd.Flags().StringVarP(
+		&message,
+		"message",        // long flag → --message
+		"m",              // short flag → -m
+		"",               // default value
+		"Commit message", // description (shown in help)
+	)
+	rootCmd.AddCommand(saveCmd)
+}
