@@ -27,7 +27,7 @@ gtool save "Message"`,
 
 		git.RunGitCommand("add", ".")
 		git.RunGitCommand("commit", "-m", message)
-		git.RunGitCommand("push")
+		git.RunGitCommand("push", "-u", "origin", "HEAD")
 
 		fmt.Println("✅ Changes saved and pushed")
 	},
