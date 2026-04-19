@@ -16,10 +16,15 @@ var saveCmd = &cobra.Command{
 push the changes to remote branch. For example:
 gtool save "Message"`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if !git.IsGitConfigSet() {
+			return
+		}
+
 		if message == "" {
 			fmt.Println("❌ Commit message required. Use -m")
 			return
 		}
+
 		git.RunGitCommand("add", ".")
 		git.RunGitCommand("commit", "-m", message)
 		git.RunGitCommand("push")
