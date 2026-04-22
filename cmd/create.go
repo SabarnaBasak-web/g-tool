@@ -1,6 +1,3 @@
-/*
-Copyright © 2026 NAME HERE <EMAIL ADDRESS>
-*/
 package cmd
 
 import (
@@ -15,6 +12,11 @@ var createCmd = &cobra.Command{
 	Short: "Create a new branch",
 	Run: func(cmd *cobra.Command, args []string) {
 		branchName := args[0]
+		// Step 1: fetch latest
+		if err := git.RunGitCommand("fetch", "origin"); err != nil {
+			cmd.Println("❌ Failed to fetch latest changes:", err)
+			return
+		}
 		err := git.RunGitCommand("checkout", "-b", branchName)
 		if err != nil {
 			cmd.Println("❌ Failed to create branch:", err)

@@ -36,7 +36,11 @@ Working with Git is powerful but often repetitive:
 git clone https://github.com/your-username/gtool.git
 cd gtool
 go build -o gtool
+
+`Linux`
 sudo mv gtool /usr/local/bin/
+
+
 ```
 
 Now you can run:
@@ -89,6 +93,7 @@ gtool new <branch-name>
 Runs:
 
 ```bash
+git pull origin
 git checkout -b <branch-name>
 ```
 
