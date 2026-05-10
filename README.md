@@ -35,11 +35,14 @@ Working with Git is powerful but often repetitive:
 ```bash
 git clone https://github.com/your-username/gtool.git
 cd gtool
-go build -o gtool
 
-`Linux`
+# Linux
+go build -o gtool
 sudo mv gtool /usr/local/bin/
 
+# Windows
+go build -o gtool.exe
+setx PATH "$($env:PATH);$(Get-Location)"     # Restart / Open new terminal after command
 
 ```
 
@@ -56,7 +59,7 @@ gtool
 ### Save changes
 
 ```bash
-gtool save "your commit message"
+gtool save -m "your commit message"
 ```
 
 Runs:
